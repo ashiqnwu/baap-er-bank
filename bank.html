@@ -47,33 +47,67 @@
                     <h4 class="text-2xl mb-4">Please Withdraw</h4>
                     <div class="mx-12">
                         <input class="w-9/12 block mb-4 px-3 text-black" type="text" name="" id="withdraw-input"
-                        placeholder="$ amount you want to withdraw">
-                    <button id="withdraw-button"
-                        class="bg-amber-600 px-8 rounded-lg py-1 text-white font-medium hover:bg-sky-700">Withdraw</button>
+                            placeholder="$ amount you want to withdraw">
+                        <button id="withdraw-button"
+                            class="bg-amber-600 px-8 rounded-lg py-1 text-white font-medium hover:bg-sky-700">Withdraw</button>
                     </div>
                 </div>
             </div>
         </section>
     </main>
     <script>
-        document.getElementById('deposit-button').addEventListener('click',function(){
+        document.getElementById('deposit-button').addEventListener('click', function () {
             const depositValueString = document.getElementById('deposit-input').value;
             const mainBalanceString = document.getElementById('main-balance').innerText;
-            const mainBalance = parseInt(mainBalanceString);
-            const depositValue = parseInt(depositValueString);
-            console.log(typeof(depositValue));
-            document.getElementById('deposit-show').innerText = depositValue;
+            const depositBalanceString = document.getElementById('deposit-show').innerText;
+            const mainBalance = parseFloat(mainBalanceString);
+            const depositValue = parseFloat(depositValueString);
+            const depositBalance = parseFloat(depositBalanceString);
+            document.getElementById('deposit-input').value = '';
+            if (isNaN(depositValue)) {
+                alert('Baper Hotel a fao Fajlami colena');
+
+                return;
+            }
+            if (depositValue < 0) {
+                alert('Baper Bank a kono fajlami colena');
+                return;
+            }
+
+            const depositeSetBalance = depositBalance + depositValue;
             const balance = mainBalance + depositValue;
+            document.getElementById('deposit-show').innerText = depositeSetBalance;
             document.getElementById('main-balance').innerText = balance;
+            document.getElementById('deposit-input').value = '';
+
         })
-        document.getElementById('withdraw-button').addEventListener('click',function(){
+        document.getElementById('withdraw-button').addEventListener('click', function () {
             const withdrawValueString = document.getElementById('withdraw-input').value;
             const mainBalanceString = document.getElementById('main-balance').innerText;
-            const mainBalance = parseInt(mainBalanceString);
-            const withdrawValue = parseInt(withdrawValueString);
-            document.getElementById('withdraw-show').innerText = withdrawValue;
+            const withdrawBalanceString = document.getElementById('withdraw-show').innerText;
+            const mainBalance = parseFloat(mainBalanceString);
+            const withdrawValue = parseFloat(withdrawValueString);
+            const withdrawBalance = parseFloat(withdrawBalanceString);
+            document.getElementById('withdraw-input').value = '';
+            if (isNaN(withdrawValue)) {
+                alert('Baper Hotel a fao Fajlami colena');
+                return;
+            }
+            if (withdrawValue < 0) {
+                alert('Baper Bank a kono fajlami colena');
+                return;
+            }
+
+            if (mainBalance < withdrawValue) {
+                alert('Baper Bank a porjapto Balance nai');
+                return;
+            }
+
+            const withdraweSetBalance = withdrawBalance + withdrawValue;
             const balance = mainBalance - withdrawValue;
+            document.getElementById('withdraw-show').innerText = withdraweSetBalance;
             document.getElementById('main-balance').innerText = balance;
+            document.getElementById('withdraw-input').value = '';
         })
 
     </script>
